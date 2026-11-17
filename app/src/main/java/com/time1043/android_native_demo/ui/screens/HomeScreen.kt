@@ -4,20 +4,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun HomeScreen() {
-    var count by rememberSaveable { mutableIntStateOf(1) }
-    val doubleCount by remember { derivedStateOf { count * 2 } }
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel()
+) {
+    // val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column {
-        Text(text = "$count x 2 = $doubleCount")
-        Button(onClick = { count++ }) { Text("Inc") }
+        Text(text = "${uiState.count} x 2 = ${uiState.doubleCount}")
+        Button(onClick = { viewModel.increment() }) { Text("Inc") }
     }
 }
