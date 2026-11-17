@@ -1,21 +1,22 @@
 package com.time1043.android_native_demo.ui.screens
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class HomeViewModel : ViewModel() {
 
     // Expose screen UI state
-    var count by mutableIntStateOf(1)
-        private set
+    private val _count = MutableStateFlow(1)
+
+    val count: StateFlow<Int> = _count.asStateFlow()
 
     val doubleCount: Int
-        get() = count * 2
+        get() = count.value * 2
 
     // Handle business logic
     fun increment() {
-        count++
+        _count.value++
     }
 }

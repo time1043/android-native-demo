@@ -4,14 +4,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
+    val count by viewModel.count.collectAsState()
+    val doubleCount = viewModel.doubleCount
+
     Column {
-        Text(text = "${viewModel.count} x 2 = ${viewModel.doubleCount}")
+        Text(text = "$count x 2 = $doubleCount")
         Button(onClick = { viewModel.increment() } ) { Text("Inc") }
     }
 }
