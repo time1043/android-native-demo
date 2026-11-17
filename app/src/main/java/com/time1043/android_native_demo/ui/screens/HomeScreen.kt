@@ -9,7 +9,8 @@ import androidx.compose.runtime.setValue
 
 @Composable
 fun HomeScreen() {
-    var count by mutableIntStateOf(1)
+    var count by mutableIntStateOf(1) // re-initialized every time the UI updates / recomposes
+    println("App recomposed, count is: $count") // always 1
 
     Button(onClick = { count++ }) { Text("${count}") }
 }
