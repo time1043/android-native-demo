@@ -7,7 +7,9 @@ import androidx.compose.runtime.mutableIntStateOf
 
 @Composable
 fun HomeScreen() {
-    var count = 1
+    // var count = mutableStateOf(1)
+    var count = mutableIntStateOf(1)
 
-    Button(onClick = { count++ }) { Text("${count}") }
+    // Button(onClick = { count.value++ }) { Text("$count") } // MutableState(value=1)@937520472
+    Button(onClick = { count.value++ }) { Text("${count.value}") } // 1
 }
